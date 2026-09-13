@@ -1,0 +1,13 @@
+const express = require("express");
+const c = require("../controllers/product.controller");
+const protect = require("../middleware/auth.middleware");
+const requireRole = require("../middleware/role.middleware");
+const { cacheMiddleware } = require("../utils/cache");
+const router = express.Router();
+router.get("/", cacheMiddleware(60), c.getProducts);
+router.get("/suggestions", cacheMiddleware(30), c.getSearchSuggestions);
+router.get("/:id", cacheMiddleware(60), c.getProductById);
+router.post("/", protect, requireRole("admin"), c.createProduct);
+router.put("/:id", protect, requireRole("admin"), c.updateProduct);
+router.delete("/:id", protect, requireRole("admin"), c.deleteProduct);
+module.exports = router;

@@ -1,0 +1,565 @@
+/* =========================================
+   NAVBAR
+========================================= */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: rgba(11, 11, 11, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.navbar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 169, 107, 0.55),
+    transparent
+  );
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.navbar__container {
+  position: relative;
+  z-index: 2;
+  width: min(1400px, 92%);
+  min-height: 78px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+/* =========================================
+   LOGO
+========================================= */
+
+.navbar__logo {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #f7f5f0;
+  text-decoration: none;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.navbar__logo span {
+  transition:
+    color 0.35s ease,
+    transform 0.35s ease;
+}
+
+.navbar__logo i {
+  width: 5px;
+  height: 5px;
+  display: block;
+  border-radius: 50%;
+  background: #c8a96b;
+  transform: scale(0);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar__logo:hover span {
+  color: #c8a96b;
+  transform: translateX(2px);
+}
+
+.navbar__logo:hover i {
+  transform: scale(1);
+}
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 31px;
+  margin-left: auto;
+}
+
+.navbar__links a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  color: #a9a9a9;
+  text-decoration: none;
+  font-size: 0.84rem;
+  font-weight: 400;
+  letter-spacing: 0.045em;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.navbar__links a span {
+  position: relative;
+  z-index: 2;
+}
+
+.navbar__links a::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  right: -8px;
+  top: 50%;
+  height: 25px;
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: center;
+  background: rgba(200, 169, 107, 0.055);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 100%;
+  height: 1px;
+  background: #c8a96b;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.navbar__links a:hover,
+.navbar__links a.is-active {
+  color: #f7f5f0;
+}
+
+.navbar__links a:hover {
+  transform: translateY(-1px);
+}
+
+.navbar__links a:hover::before,
+.navbar__links a.is-active::before {
+  transform: translateY(-50%) scaleX(1);
+}
+
+.navbar__links a:hover::after,
+.navbar__links a.is-active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.navbar__action,
+.navbar__menu-btn {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  color: #f7f5f0;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.navbar__action::before,
+.navbar__menu-btn::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transform: scale(0.72);
+  opacity: 0;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.navbar__action:hover,
+.navbar__menu-btn:hover {
+  color: #c8a96b;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.navbar__action:hover::before,
+.navbar__menu-btn:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* =========================================
+   ADMIN BUTTON
+========================================= */
+
+.navbar__admin {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 0 11px;
+  overflow: hidden;
+  border: 1px solid rgba(200, 169, 107, 0.38);
+  background: linear-gradient(
+    135deg,
+    rgba(200, 169, 107, 0.085),
+    rgba(255, 255, 255, 0.02)
+  );
+  color: #c8a96b;
+  text-decoration: none;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.navbar__admin::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -45%;
+  width: 25%;
+  height: 100%;
+  transform: skewX(-20deg);
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.navbar__admin:hover::before {
+  animation: navbar-admin-glint 0.85s ease;
+}
+
+.navbar__admin:hover,
+.navbar__admin.is-active {
+  color: #090909;
+  background: #c8a96b;
+  border-color: #c8a96b;
+  transform: translateY(-1px);
+}
+
+.navbar__admin.is-active {
+  box-shadow:
+    0 0 0 1px rgba(200, 169, 107, 0.08),
+    0 8px 25px rgba(200, 169, 107, 0.08);
+}
+
+@keyframes navbar-admin-glint {
+  from {
+    left: -45%;
+  }
+
+  to {
+    left: 125%;
+  }
+}
+
+/* =========================================
+   ACCOUNT
+========================================= */
+
+.navbar__account {
+  position: relative;
+}
+
+.navbar__account:hover .navbar__logout {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.navbar__logout {
+  position: absolute;
+  top: calc(100% + 9px);
+  right: 0;
+  min-width: 145px;
+  height: 42px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: #151515;
+  color: #b7b7b7;
+  font-family: inherit;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-7px);
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease,
+    transform 0.25s ease,
+    color 0.25s ease,
+    background 0.25s ease;
+}
+
+.navbar__logout:hover {
+  color: #f7f5f0;
+  background: #1c1c1c;
+}
+
+.navbar__logout:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   CART
+========================================= */
+
+.navbar__cart-action {
+  margin-left: 2px;
+}
+
+.navbar__cart-count {
+  position: absolute;
+  top: 4px;
+  right: 3px;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #c8a96b;
+  color: #0b0b0b;
+  font-size: 0.56rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* =========================================
+   MOBILE AUTH / ADMIN
+========================================= */
+
+.navbar__mobile-auth,
+.navbar__mobile-admin {
+  display: none !important;
+}
+
+/* =========================================
+   MOBILE MENU BUTTON
+========================================= */
+
+.navbar__menu-btn {
+  display: none;
+}
+
+/* =========================================
+   MOBILE BACKDROP
+========================================= */
+
+.navbar__mobile-backdrop {
+  display: none;
+  position: fixed;
+  inset: 70px 0 0;
+  z-index: 0;
+  border: none;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  cursor: default;
+}
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1050px) {
+  .navbar__links {
+    gap: 21px;
+  }
+
+  .navbar__links a {
+    font-size: 0.78rem;
+  }
+
+  .navbar__admin span {
+    display: none;
+  }
+
+  .navbar__admin {
+    width: 38px;
+    padding: 0;
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 720px) {
+  .navbar__container {
+    min-height: 70px;
+  }
+
+  .navbar__logo {
+    font-size: 1.1rem;
+    letter-spacing: 0.25em;
+  }
+
+  .navbar__menu-btn {
+    display: grid;
+  }
+
+  .navbar__links {
+    position: absolute;
+    z-index: 5;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    padding: 26px 6% 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 19px;
+    margin-left: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(19, 19, 19, 0.98),
+      rgba(9, 9, 9, 0.99)
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.38);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition:
+      opacity 0.35s ease,
+      visibility 0.35s ease,
+      transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .navbar__links--open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .navbar__links a {
+    font-size: 0.94rem;
+  }
+
+  .navbar__mobile-auth {
+    display: flex !important;
+    align-items: center;
+    gap: 9px;
+    margin-top: 3px;
+    padding-top: 17px;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    color: #c8a96b !important;
+  }
+
+  .navbar__mobile-auth::after {
+    display: none;
+  }
+
+  .navbar__mobile-admin {
+    display: flex !important;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    color: #f7f5f0 !important;
+  }
+
+  .navbar__mobile-admin svg:last-child {
+    margin-left: auto;
+    color: #c8a96b;
+  }
+
+  .navbar__account {
+    display: none;
+  }
+
+  .navbar__login-action {
+    display: none;
+  }
+
+  .navbar__admin {
+    display: none;
+  }
+
+  .navbar__mobile-backdrop {
+    display: block;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 420px) {
+  .navbar__container {
+    width: 94%;
+    gap: 8px;
+  }
+
+  .navbar__logo {
+    font-size: 0.98rem;
+    letter-spacing: 0.2em;
+  }
+
+  .navbar__actions {
+    gap: 1px;
+  }
+
+  .navbar__action,
+  .navbar__menu-btn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar *,
+  .navbar *::before,
+  .navbar *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

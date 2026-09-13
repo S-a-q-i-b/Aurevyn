@@ -1,0 +1,2 @@
+.global-cursor{position:fixed;z-index:10000;width:14px;height:14px;border:1px solid #d4af37;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);opacity:0;transition:width .25s,height .25s,opacity .2s,background .25s;mix-blend-mode:difference}.global-cursor.is-visible{opacity:1}.global-cursor img{position:absolute;width:92px;height:118px;object-fit:cover;left:14px;top:14px;opacity:.9;border:1px solid rgba(212,175,55,.6)}
+@media(pointer:coarse),(prefers-reduced-motion:reduce){.global-cursor{display:none}}

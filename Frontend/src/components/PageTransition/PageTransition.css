@@ -1,0 +1,2 @@
+.page-transition { width: 100%; min-height: 100vh; }
+@media (prefers-reduced-motion: reduce) { .page-transition { transition: none !important; } }

@@ -1,0 +1,21 @@
+:root {
+  --primary-bg: #fdfbf7;
+  --surface: #ffffff;
+  --black: #090909;
+  --black-soft: #111111;
+  --white: #fdfbf7;
+  --ink: #111827;
+  --gray: #6b7280;
+  --gold: #d4af37;
+  --gold-soft: #c8a96b;
+  --border-light: #f3f4f6;
+  --border: rgba(17, 24, 39, 0.1);
+  --cream: #f3f0e8;
+  --success: #365c4b;
+
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--primary-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}

@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: initial;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--black);
+  color: var(--white);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--black);
+}
+
+.page-placeholder {
+  min-height: calc(100vh - 78px);
+  display: grid;
+  place-items: center;
+}
+
+.page-placeholder h1 {
+  font-size: 3rem;
+  font-weight: 500;
+}
+
+.route-fallback{min-height:70vh;display:grid;place-items:center;gap:16px;background:#090909;color:#f7f5f0;font:600 .7rem/1 Inter,sans-serif;letter-spacing:.28em}.route-fallback i{width:72px;height:1px;background:#d4af37;display:block;animation:aurevynLoad 1s ease-in-out infinite alternate}@keyframes aurevynLoad{from{transform:scaleX(.35);opacity:.35}to{transform:scaleX(1);opacity:1}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.route-fallback i{animation:none}}
