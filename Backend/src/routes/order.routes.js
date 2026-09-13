@@ -5,7 +5,7 @@ const requireRole = require("../middleware/role.middleware");
 const router = express.Router();
 router.post("/", protect, c.createOrder);
 router.get("/my", protect, c.getMyOrders);
-router.get("/:id", protect, c.getOrderById);
 router.get("/admin/all", protect, requireRole("admin"), c.adminOrders);
 router.patch("/admin/:id/status", protect, requireRole("admin"), c.updateOrderStatus);
+router.get("/:id", protect, c.getOrderById);
 module.exports = router;

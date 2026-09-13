@@ -18,9 +18,9 @@ const imagekitRoutes = require("./src/routes/imagekit.routes");
 
 const app = express();
 
-const PORT = process.env.PORT || 5000;
+connectDB()
 
-connectDB();
+const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = String(process.env.CLIENT_URL || "http://localhost:5173")
   .split(",")
@@ -69,6 +69,20 @@ app.use(
 );
 
 app.use(cookieParser());
+
+
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    return next();
+  } catch (error) {
+    console.error("Database unavailable:", error.message);
+    return res.status(503).json({
+      success: false,
+      message: "Database connection unavailable",
+    });
+  }
+});
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -143,3 +157,14 @@ app.use((error, req, res, next) => {
     message: error.message || "Internal server error",
   });
 });
+
+
+
+module.exports = app;
+
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Aurevyn API running on port ${PORT}`);
+  });
+}
