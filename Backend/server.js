@@ -143,7 +143,3 @@ app.use((error, req, res, next) => {
     message: error.message || "Internal server error",
   });
 });
-
-app.listen(PORT, () => {
-  console.log(`Aurevyn server running on port ${PORT}`);
-});
