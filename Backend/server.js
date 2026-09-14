@@ -132,16 +132,22 @@ app.get("/api/health", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes);
 
 app.use("/api/orders", orderRoutes);
+app.use("/orders", orderRoutes);
 
 app.use("/api/products", productRoutes);
+app.use("/products", productRoutes);
 
 app.use("/api/cart", cartRoutes);
+app.use("/cart", cartRoutes);
 
 app.use("/api/coupons", couponRoutes);
+app.use("/coupons", couponRoutes);
 
 app.use("/api/imagekit", imagekitRoutes);
+app.use("/imagekit", imagekitRoutes);
 
 app.use((req, res) => {
   return res.status(404).json({
