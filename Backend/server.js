@@ -20,10 +20,18 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-const allowedOrigins = String(process.env.CLIENT_URL || "http://localhost:5173")
+const configuredOrigins = String(process.env.CLIENT_URL || "")
   .split(",")
   .map((value) => value.trim())
   .filter(Boolean);
+
+const allowedOrigins = [
+  ...new Set([
+    ...configuredOrigins,
+    "http://localhost:5173",
+    "https://aurevyn-7phgguesd-team-faith1.vercel.app",
+  ]),
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
