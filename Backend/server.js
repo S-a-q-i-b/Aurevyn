@@ -18,8 +18,6 @@ const imagekitRoutes = require("./src/routes/imagekit.routes");
 
 const app = express();
 
-connectDB()
-
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = String(process.env.CLIENT_URL || "http://localhost:5173")
@@ -69,7 +67,6 @@ app.use(
 );
 
 app.use(cookieParser());
-
 
 app.use(async (req, res, next) => {
   try {
@@ -158,10 +155,7 @@ app.use((error, req, res, next) => {
   });
 });
 
-
-
 module.exports = app;
-
 
 if (require.main === module) {
   app.listen(PORT, () => {
