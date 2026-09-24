@@ -18,19 +18,13 @@ const imagekitRoutes = require("./src/routes/imagekit.routes");
 
 const app = express();
 
-const PORT = process.env.PORT || 5000;
-
 const configuredOrigins = String(process.env.CLIENT_URL || "")
   .split(",")
   .map((value) => value.trim().replace(/\/+$/, ""))
   .filter(Boolean);
 
 const allowedOrigins = [
-  ...new Set([
-    ...configuredOrigins,
-    "http://localhost:5173",
-    "https://aurevyn-nc683ew22-team-faith1.vercel.app",
-  ]),
+  ...new Set([...configuredOrigins, "http://localhost:5173"]),
 ];
 
 const corsOptions = {
@@ -61,8 +55,6 @@ app.options("*", cors(corsOptions));
 app.set("trust proxy", 1);
 
 app.disable("x-powered-by");
-
-app.use(cors(corsOptions));
 
 app.use(compression({ threshold: 1024 }));
 
