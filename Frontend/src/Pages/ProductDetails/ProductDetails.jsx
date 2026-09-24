@@ -636,7 +636,7 @@ const ProductDetails = () => {
         </div>
       </section>
 
-      {/* BOTTOM INFO */}
+
 
       <section className="product-details__bottom-card">
         <div className="product-details__bottom-art">

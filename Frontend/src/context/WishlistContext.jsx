@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { useAuth } from "./AuthContext";
 import { getWishlistApi, toggleWishlistApi } from "../services/authApi";
+import { useAuth } from "./AuthContext";
 
 const WishlistContext = createContext(null);
 
@@ -29,10 +29,20 @@ export const WishlistProvider = ({ children }) => {
   useEffect(() => {
     let active = true;
     if (!user) return undefined;
-    getWishlistApi().then((response) => {
-      if (active && response?.success) setWishlistItems((response.products || []).map((product) => ({ ...product, id: product._id })));
-    }).catch(() => {});
-    return () => { active = false; };
+    getWishlistApi()
+      .then((response) => {
+        if (active && response?.success)
+          setWishlistItems(
+            (response.products || []).map((product) => ({
+              ...product,
+              id: product._id,
+            })),
+          );
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
   }, [user?.id]);
 
   const isInWishlist = (productId) => {
@@ -75,14 +85,20 @@ export const WishlistProvider = ({ children }) => {
     const productId = product.id || product._id;
 
     setWishlistItems((currentItems) => {
-      const exists = currentItems.some((item) => String(item.id || item._id) === String(productId));
+      const exists = currentItems.some(
+        (item) => String(item.id || item._id) === String(productId),
+      );
       return exists
-        ? currentItems.filter((item) => String(item.id || item._id) !== String(productId))
+        ? currentItems.filter(
+            (item) => String(item.id || item._id) !== String(productId),
+          )
         : [...currentItems, { ...product, id: productId }];
     });
 
     if (user) {
-      toggleWishlistApi(productId).catch((error) => console.warn("Wishlist sync failed:", error?.message));
+      toggleWishlistApi(productId).catch((error) =>
+        console.warn("Wishlist sync failed:", error?.message),
+      );
     }
   };
 

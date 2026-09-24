@@ -1,15 +1,12 @@
 import { AnimatePresence, motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 import { ArrowRight, Heart, ShoppingBag } from "lucide-react";
-
 import { useEffect, useRef, useState } from "react";
-
 import { Link } from "react-router-dom";
 
-import "./Wishlist.css";
 import { useCart } from "../../context/CartContext";
+import "./Wishlist.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -76,6 +73,7 @@ const formatPrice = (price) => `PKR ${price.toLocaleString("en-PK")}`;
 
 const Wishlist = () => {
   const { addToCart } = useCart();
+
   const pageRef = useRef(null);
   const gridRef = useRef(null);
 
@@ -86,42 +84,42 @@ const Wishlist = () => {
       gsap.fromTo(
         ".wishlist__hero-content",
         {
-          opacity: 0,
-          y: 45,
+          opacity: 0.9,
+          y: 14,
         },
         {
           opacity: 1,
           y: 0,
-          duration: 1,
-          ease: "power3.out",
+          duration: 0.45,
+          ease: "power2.out",
         },
       );
 
       gsap.fromTo(
         ".wishlist__back",
         {
-          opacity: 0,
-          x: -18,
+          opacity: 0.9,
+          x: -6,
         },
         {
           opacity: 1,
           x: 0,
-          duration: 0.7,
-          ease: "power3.out",
+          duration: 0.35,
+          ease: "power2.out",
         },
       );
 
       gsap.fromTo(
         ".wishlist__hero-line",
         {
-          scaleX: 0,
+          scaleX: 0.7,
         },
         {
           scaleX: 1,
-          duration: 1.1,
-          delay: 0.25,
+          duration: 0.55,
+          delay: 0.08,
           transformOrigin: "left center",
-          ease: "power3.out",
+          ease: "power2.out",
         },
       );
 
@@ -129,19 +127,18 @@ const Wishlist = () => {
         gsap.fromTo(
           gridRef.current.querySelectorAll(".wishlist__card"),
           {
-            opacity: 0,
-            y: 50,
+            opacity: 0.92,
+            y: 12,
           },
           {
             opacity: 1,
             y: 0,
-            duration: 0.8,
-            stagger: 0.12,
-            ease: "power3.out",
-
+            duration: 0.4,
+            stagger: 0.05,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: gridRef.current,
-              start: "top 84%",
+              start: "top 88%",
               once: true,
             },
           },
@@ -151,33 +148,31 @@ const Wishlist = () => {
       gsap.fromTo(
         ".wishlist__cta",
         {
-          opacity: 0,
-          y: 35,
+          opacity: 0.92,
+          y: 12,
         },
         {
           opacity: 1,
           y: 0,
-          duration: 0.9,
-          ease: "power3.out",
-
+          duration: 0.45,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: ".wishlist__cta",
-            start: "top 88%",
+            start: "top 90%",
             once: true,
           },
         },
       );
     }, pageRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, [wishlist.length]);
-
 
   const removeFromWishlist = (id) => {
     setWishlist((current) => current.filter((item) => item.id !== id));
   };
-
-
 
   if (wishlist.length === 0) {
     return (
@@ -188,8 +183,11 @@ const Wishlist = () => {
               to="/account"
               className="wishlist__back"
               whileHover={{
-                x: -5,
-                gap: 12,
+                x: -2,
+                gap: 10,
+              }}
+              whileTap={{
+                scale: 0.99,
               }}
             >
               <ArrowRight
@@ -204,11 +202,15 @@ const Wishlist = () => {
               className="wishlist__hero-content"
               initial={{
                 opacity: 0,
-                y: 30,
+                y: 10,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
+              }}
+              transition={{
+                duration: 0.4,
+                ease: "easeOut",
               }}
             >
               <p className="wishlist__eyebrow">AUREVYN / WISHLIST</p>
@@ -233,24 +235,25 @@ const Wishlist = () => {
             className="wishlist__empty"
             initial={{
               opacity: 0,
-              y: 30,
+              y: 12,
             }}
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              duration: 0.7,
-              delay: 0.15,
+              duration: 0.4,
+              delay: 0.06,
+              ease: "easeOut",
             }}
           >
             <motion.div
               className="wishlist__empty-icon"
               animate={{
-                y: [0, -7, 0],
+                y: [0, -3, 0],
               }}
               transition={{
-                duration: 3,
+                duration: 4.5,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
@@ -274,11 +277,11 @@ const Wishlist = () => {
               to="/shop"
               className="wishlist__empty-button"
               whileHover={{
-                y: -4,
-                gap: 13,
+                y: -2,
+                gap: 11,
               }}
               whileTap={{
-                scale: 0.97,
+                scale: 0.985,
               }}
             >
               Explore collection
@@ -306,12 +309,12 @@ const Wishlist = () => {
               to="/account"
               className="wishlist__back"
               whileHover={{
-                x: -5,
-                gap: 12,
+                x: -2,
+                gap: 10,
                 color: "#e7dfd1",
               }}
               whileTap={{
-                scale: 0.97,
+                scale: 0.99,
               }}
             >
               <ArrowRight
@@ -330,15 +333,16 @@ const Wishlist = () => {
               className="wishlist__eyebrow"
               initial={{
                 opacity: 0,
-                x: -18,
+                x: -7,
               }}
               animate={{
                 opacity: 1,
                 x: 0,
               }}
               transition={{
-                duration: 0.7,
-                delay: 0.1,
+                duration: 0.4,
+                delay: 0.04,
+                ease: "easeOut",
               }}
             >
               AUREVYN / SAVED PIECES
@@ -347,18 +351,16 @@ const Wishlist = () => {
             <motion.h1
               initial={{
                 opacity: 0,
-                y: 45,
-                scale: 0.97,
+                y: 15,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
-                scale: 1,
               }}
               transition={{
-                duration: 1,
-                delay: 0.18,
-                ease: [0.22, 1, 0.36, 1],
+                duration: 0.5,
+                delay: 0.08,
+                ease: "easeOut",
               }}
             >
               Your
@@ -368,15 +370,16 @@ const Wishlist = () => {
             <motion.p
               initial={{
                 opacity: 0,
-                y: 25,
+                y: 8,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
               }}
               transition={{
-                duration: 0.8,
-                delay: 0.4,
+                duration: 0.4,
+                delay: 0.14,
+                ease: "easeOut",
               }}
             >
               The pieces you've fallen for will live here, ready whenever you're
@@ -387,15 +390,16 @@ const Wishlist = () => {
               className="wishlist__hero-meta"
               initial={{
                 opacity: 0,
-                y: 18,
+                y: 6,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
               }}
               transition={{
-                duration: 0.7,
-                delay: 0.58,
+                duration: 0.35,
+                delay: 0.2,
+                ease: "easeOut",
               }}
             >
               <span>
@@ -419,10 +423,6 @@ const Wishlist = () => {
         </div>
       </section>
 
-      {/* =====================================
-          CONTENT
-      ====================================== */}
-
       <section className="wishlist__content">
         <div className="wishlist__content-heading">
           <div>
@@ -435,17 +435,13 @@ const Wishlist = () => {
             to="/shop"
             className="wishlist__shop-link"
             whileHover={{
-              gap: 13,
+              gap: 10,
             }}
           >
             Discover more
             <ArrowRight size={15} strokeWidth={1.5} />
           </MotionLink>
         </div>
-
-        {/* =====================================
-            PRODUCT GRID
-        ====================================== */}
 
         <div ref={gridRef} className="wishlist__grid">
           <AnimatePresence mode="popLayout">
@@ -458,43 +454,44 @@ const Wishlist = () => {
                 whileHover="hover"
                 exit={{
                   opacity: 0,
-                  scale: 0.92,
-                  y: 30,
+                  scale: 0.98,
+                  y: 8,
                 }}
                 transition={{
-                  duration: 0.4,
+                  duration: 0.25,
+                  ease: "easeOut",
                 }}
               >
-                {/* IMAGE */}
-
                 <div className="wishlist__image-wrap">
                   <motion.img
                     src={item.image}
                     alt={item.name}
                     whileHover={{
-                      scale: 1.07,
+                      scale: 1.035,
                     }}
                     transition={{
-                      duration: 0.8,
-                      ease: [0.22, 1, 0.36, 1],
+                      duration: 0.45,
+                      ease: "easeOut",
                     }}
                   />
+
                   <div className="wishlist__image-overlay" />
+
                   <span className="wishlist__number">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  {/* REMOVE */}
+
                   <motion.button
                     type="button"
                     className="wishlist__remove"
                     aria-label={`Remove ${item.name} from wishlist`}
                     onClick={() => removeFromWishlist(item.id)}
                     whileHover={{
-                      scale: 1.08,
+                      scale: 1.03,
                       backgroundColor: "#f1eee6",
                     }}
                     whileTap={{
-                      scale: 0.9,
+                      scale: 0.97,
                     }}
                   >
                     <Heart size={17} strokeWidth={1.5} fill="currentColor" />
@@ -504,12 +501,12 @@ const Wishlist = () => {
                     type="button"
                     className="wishlist__quick-add"
                     whileHover={{
-                      borderRadius: 10,
+                      borderRadius: 8,
                       backgroundColor: "#d0ad6a",
-                      gap: 11,
+                      gap: 9,
                     }}
                     whileTap={{
-                      scale: 0.97,
+                      scale: 0.985,
                     }}
                     onClick={() => {
                       addToCart(item);
@@ -538,7 +535,7 @@ const Wishlist = () => {
                   to={`/product/${item.id}`}
                   className="wishlist__view"
                   whileHover={{
-                    gap: 12,
+                    gap: 10,
                   }}
                 >
                   View piece
@@ -563,12 +560,12 @@ const Wishlist = () => {
             to="/shop"
             className="wishlist__cta-button"
             whileHover={{
-              y: -4,
-              gap: 13,
+              y: -2,
+              gap: 11,
               backgroundColor: "#d0ad6a",
             }}
             whileTap={{
-              scale: 0.97,
+              scale: 0.985,
             }}
           >
             Shop AUREVYN

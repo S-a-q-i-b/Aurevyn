@@ -1,99 +1,218 @@
 .home-canvas {
   position: relative;
-  height: 100vh;
+  height: 180vh;
   background: #090909;
 }
+
 .home-canvas__sticky {
   position: sticky;
   top: 0;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
+  background: #090909;
 }
+
 .home-canvas__canvas {
   position: absolute;
   inset: 0;
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  background: #090909;
 }
+
 .home-canvas__veil {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.68), rgba(0, 0, 0, 0.08) 65%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.55), transparent 35%);
+    linear-gradient(90deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.1) 68%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.55), transparent 38%);
+  pointer-events: none;
 }
+
 .home-canvas__copy {
   position: absolute;
-  left: 7vw;
+  left: clamp(24px, 7vw, 100px);
   top: 50%;
+  z-index: 3;
+  width: min(560px, 76vw);
   transform: translateY(-50%);
-  max-width: 560px;
   color: #f7f5f0;
 }
+
 .home-canvas__copy span {
+  display: block;
+  color: #d4af37;
   font:
     500 0.68rem/1 Inter,
     sans-serif;
   letter-spacing: 0.28em;
-  color: #d4af37;
 }
+
 .home-canvas__copy h2 {
+  margin: 20px 0 22px;
+  color: #f7f5f0;
   font:
-    500 clamp(3.5rem, 8vw, 8rem)/0.86 Georgia,
+    500 clamp(3.4rem, 8vw, 8rem) / 0.86 Georgia,
     serif;
-  margin: 24px 0;
+  letter-spacing: -0.045em;
 }
+
 .home-canvas__copy h2 em {
   color: #d4af37;
   font-style: italic;
   font-weight: 400;
 }
+
 .home-canvas__copy p {
   max-width: 420px;
-  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
   line-height: 1.7;
 }
+
 .home-canvas__meta {
   position: absolute;
-  right: 6vw;
-  bottom: 7vh;
+  right: clamp(24px, 6vw, 90px);
+  bottom: clamp(28px, 7vh, 65px);
+  z-index: 3;
   display: flex;
   align-items: center;
   gap: 12px;
+  color: #d9d2c6;
   font:
     0.62rem/1 Inter,
     sans-serif;
   letter-spacing: 0.24em;
-  color: #d9d2c6;
 }
+
 .home-canvas__meta i {
   display: block;
   width: 70px;
   height: 1px;
   background: #d4af37;
 }
-@media (max-width: 700px) {
+
+@media (max-width: 900px) {
   .home-canvas {
-    height: 190vh;
+    height: 165vh;
   }
+
   .home-canvas__copy {
-    left: 7vw;
-    right: 7vw;
+    left: 6vw;
+    width: min(500px, 82vw);
   }
+
+  .home-canvas__copy h2 {
+    font-size: clamp(3.1rem, 10vw, 5.5rem);
+  }
+
   .home-canvas__copy p {
-    max-width: 320px;
+    max-width: 360px;
+    font-size: 12px;
   }
+
   .home-canvas__meta {
-    right: 7vw;
+    right: 6vw;
     bottom: 5vh;
   }
 }
+
+@media (max-width: 700px) {
+  .home-canvas {
+    height: 150vh;
+  }
+
+  .home-canvas__sticky {
+    height: 100svh;
+    min-height: 560px;
+  }
+
+  .home-canvas__veil {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.28),
+      rgba(0, 0, 0, 0.12) 45%,
+      rgba(0, 0, 0, 0.65) 100%
+    );
+  }
+
+  .home-canvas__copy {
+    left: 7vw;
+    right: 7vw;
+    top: 48%;
+    width: auto;
+    transform: translateY(-50%);
+  }
+
+  .home-canvas__copy span {
+    font-size: 0.56rem;
+    letter-spacing: 0.2em;
+  }
+
+  .home-canvas__copy h2 {
+    margin: 15px 0 17px;
+    font-size: clamp(3rem, 14vw, 5rem);
+    line-height: 0.87;
+  }
+
+  .home-canvas__copy p {
+    max-width: 300px;
+    font-size: 10px;
+    line-height: 1.65;
+  }
+
+  .home-canvas__meta {
+    right: 7vw;
+    bottom: 4vh;
+    gap: 9px;
+    font-size: 0.52rem;
+    letter-spacing: 0.18em;
+  }
+
+  .home-canvas__meta i {
+    width: 38px;
+  }
+}
+
+@media (max-width: 420px) {
+  .home-canvas {
+    height: 145vh;
+  }
+
+  .home-canvas__sticky {
+    min-height: 520px;
+  }
+
+  .home-canvas__copy {
+    top: 46%;
+  }
+
+  .home-canvas__copy h2 {
+    font-size: 2.8rem;
+  }
+
+  .home-canvas__copy p {
+    max-width: 260px;
+    font-size: 9px;
+  }
+
+  .home-canvas__meta {
+    bottom: 24px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .home-canvas {
     height: 100vh;
   }
+
   .home-canvas__sticky {
     position: relative;
+    height: 100vh;
+    min-height: 0;
   }
 }

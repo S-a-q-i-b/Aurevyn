@@ -162,8 +162,7 @@ const Orders = () => {
       );
 
       if (ordersRef.current) {
-        const cards =
-          ordersRef.current.querySelectorAll(".orders__card");
+        const cards = ordersRef.current.querySelectorAll(".orders__card");
 
         if (cards.length > 0) {
           gsap.fromTo(
@@ -219,9 +218,7 @@ const Orders = () => {
   }, [loading]);
 
   const toggleOrder = (orderId) => {
-    setExpandedOrder((current) =>
-      current === orderId ? null : orderId,
-    );
+    setExpandedOrder((current) => (current === orderId ? null : orderId));
   };
 
   return (
@@ -326,8 +323,8 @@ const Orders = () => {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              Every order, every piece, every moment that becomes
-              part of your AUREVYN story.
+              Every order, every piece, every moment that becomes part of your
+              AUREVYN story.
             </motion.p>
 
             <motion.div
@@ -356,9 +353,7 @@ const Orders = () => {
           <div className="orders__hero-bottom">
             <div className="orders__hero-line" />
 
-            <span className="orders__hero-count">
-              {orderCountText}
-            </span>
+            <span className="orders__hero-count">{orderCountText}</span>
           </div>
         </div>
       </section>
@@ -369,8 +364,7 @@ const Orders = () => {
             <p className="orders__eyebrow">ORDER HISTORY</p>
 
             <h2>
-              {orders.length}{" "}
-              {orders.length === 1 ? "order" : "orders"}
+              {orders.length} {orders.length === 1 ? "order" : "orders"}
             </h2>
           </div>
 
@@ -399,10 +393,7 @@ const Orders = () => {
             }}
           >
             <div className="orders__empty-icon">
-              <ShoppingBag
-                size={28}
-                strokeWidth={1.2}
-              />
+              <ShoppingBag size={28} strokeWidth={1.2} />
             </div>
 
             <p className="orders__eyebrow">AUREVYN</p>
@@ -412,10 +403,7 @@ const Orders = () => {
               <span>journey.</span>
             </h3>
 
-            <p>
-              Gathering your latest orders and preparing them for
-              you.
-            </p>
+            <p>Gathering your latest orders and preparing them for you.</p>
           </motion.div>
         ) : error ? (
           <motion.div
@@ -455,22 +443,16 @@ const Orders = () => {
                 }}
               >
                 Login to continue
-                <ArrowRight
-                  size={16}
-                  strokeWidth={1.5}
-                />
+                <ArrowRight size={16} strokeWidth={1.5} />
               </MotionLink>
             )}
           </motion.div>
         ) : orders.length > 0 ? (
           <div ref={ordersRef} className="orders__list">
             {orders.map((order, index) => {
-              const isExpanded =
-                expandedOrder === order._id;
+              const isExpanded = expandedOrder === order._id;
 
-              const displayStatus = formatStatus(
-                order.status,
-              );
+              const displayStatus = formatStatus(order.status);
 
               return (
                 <motion.article
@@ -499,9 +481,7 @@ const Orders = () => {
                       <div>
                         <small>ORDER</small>
 
-                        <strong>
-                          {formatOrderId(order)}
-                        </strong>
+                        <strong>{formatOrderId(order)}</strong>
                       </div>
                     </div>
 
@@ -528,46 +508,36 @@ const Orders = () => {
                   <div className="orders__card-body">
                     <div className="orders__visual">
                       <div className="orders__items-preview">
-                        {order.items?.slice(0, 3).map(
-                          (item, itemIndex) => (
-                            <motion.div
-                              key={`${item.productId || item.name}-${itemIndex}`}
-                              className="orders__item-thumb"
-                              initial={{
-                                opacity: 0,
-                                scale: 0.85,
-                                x: 18,
-                              }}
-                              animate={{
-                                opacity: 1,
-                                scale: 1,
-                                x: 0,
-                              }}
-                              transition={{
-                                duration: 0.55,
-                                delay: itemIndex * 0.1,
-                                ease: [
-                                  0.22,
-                                  1,
-                                  0.36,
-                                  1,
-                                ],
-                              }}
-                              whileHover={{
-                                y: -8,
-                                scale: 1.05,
-                                zIndex: 5,
-                              }}
-                            >
-                              <img
-                                src={item.image}
-                                alt={item.name}
-                              />
+                        {order.items?.slice(0, 3).map((item, itemIndex) => (
+                          <motion.div
+                            key={`${item.productId || item.name}-${itemIndex}`}
+                            className="orders__item-thumb"
+                            initial={{
+                              opacity: 0,
+                              scale: 0.85,
+                              x: 18,
+                            }}
+                            animate={{
+                              opacity: 1,
+                              scale: 1,
+                              x: 0,
+                            }}
+                            transition={{
+                              duration: 0.55,
+                              delay: itemIndex * 0.1,
+                              ease: [0.22, 1, 0.36, 1],
+                            }}
+                            whileHover={{
+                              y: -8,
+                              scale: 1.05,
+                              zIndex: 5,
+                            }}
+                          >
+                            <img src={item.image} alt={item.name} />
 
-                              <span />
-                            </motion.div>
-                          ),
-                        )}
+                            <span />
+                          </motion.div>
+                        ))}
 
                         {(order.items?.length || 0) > 3 && (
                           <div className="orders__item-more">
@@ -577,15 +547,9 @@ const Orders = () => {
                       </div>
 
                       <div className="orders__visual-label">
-                        <ShoppingBag
-                          size={13}
-                          strokeWidth={1.5}
-                        />
-
+                        <ShoppingBag size={13} strokeWidth={1.5} />
                         {order.items?.length || 0}{" "}
-                        {order.items?.length === 1
-                          ? "piece"
-                          : "pieces"}
+                        {order.items?.length === 1 ? "piece" : "pieces"}
                       </div>
                     </div>
 
@@ -593,34 +557,26 @@ const Orders = () => {
                       <div>
                         <span>PLACED</span>
 
-                        <strong>
-                          {formatDate(order.createdAt)}
-                        </strong>
+                        <strong>{formatDate(order.createdAt)}</strong>
                       </div>
 
                       <div>
                         <span>ITEMS</span>
 
-                        <strong>
-                          {order.items?.length || 0}
-                        </strong>
+                        <strong>{order.items?.length || 0}</strong>
                       </div>
 
                       <div>
                         <span>TOTAL</span>
 
-                        <strong>
-                          {formatPrice(order.total)}
-                        </strong>
+                        <strong>{formatPrice(order.total)}</strong>
                       </div>
                     </div>
 
                     <motion.button
                       type="button"
                       className="orders__view-button"
-                      onClick={() =>
-                        toggleOrder(order._id)
-                      }
+                      onClick={() => toggleOrder(order._id)}
                       whileHover={{
                         backgroundColor: "#e3ddcf",
                         color: "#25211c",
@@ -629,9 +585,7 @@ const Orders = () => {
                         scale: 0.96,
                       }}
                     >
-                      {isExpanded
-                        ? "Hide details"
-                        : "View details"}
+                      {isExpanded ? "Hide details" : "View details"}
 
                       <motion.span
                         animate={{
@@ -641,10 +595,7 @@ const Orders = () => {
                           duration: 0.3,
                         }}
                       >
-                        <ChevronDown
-                          size={16}
-                          strokeWidth={1.5}
-                        />
+                        <ChevronDown size={16} strokeWidth={1.5} />
                       </motion.span>
                     </motion.button>
                   </div>
@@ -673,95 +624,68 @@ const Orders = () => {
                         <div className="orders__details-inner">
                           <div className="orders__details-heading">
                             <div>
-                              <p className="orders__eyebrow">
-                                ORDER DETAILS
-                              </p>
+                              <p className="orders__eyebrow">ORDER DETAILS</p>
 
                               <h3>Your pieces</h3>
                             </div>
 
-                            <ChevronUp
-                              size={18}
-                              strokeWidth={1.3}
-                            />
+                            <ChevronUp size={18} strokeWidth={1.3} />
                           </div>
 
                           <div className="orders__products">
-                            {(order.items || []).map(
-                              (item, itemIndex) => (
+                            {(order.items || []).map((item, itemIndex) => (
+                              <motion.div
+                                key={`${item.productId || item.name}-${itemIndex}`}
+                                className="orders__product"
+                                initial={{
+                                  opacity: 0,
+                                  x: -20,
+                                }}
+                                animate={{
+                                  opacity: 1,
+                                  x: 0,
+                                }}
+                                transition={{
+                                  delay: itemIndex * 0.1,
+                                }}
+                              >
                                 <motion.div
-                                  key={`${item.productId || item.name}-${itemIndex}`}
-                                  className="orders__product"
-                                  initial={{
-                                    opacity: 0,
-                                    x: -20,
-                                  }}
-                                  animate={{
-                                    opacity: 1,
-                                    x: 0,
-                                  }}
-                                  transition={{
-                                    delay: itemIndex * 0.1,
+                                  className="orders__product-image"
+                                  whileHover={{
+                                    scale: 1.04,
                                   }}
                                 >
-                                  <motion.div
-                                    className="orders__product-image"
-                                    whileHover={{
-                                      scale: 1.04,
-                                    }}
-                                  >
-                                    <img
-                                      src={item.image}
-                                      alt={item.name}
-                                    />
-                                  </motion.div>
-
-                                  <div className="orders__product-info">
-                                    <small>
-                                      {item.category ||
-                                        "AUREVYN"}
-                                    </small>
-
-                                    <h4>{item.name}</h4>
-
-                                    <div className="orders__product-meta">
-                                      {item.size && (
-                                        <span>
-                                          Size {item.size}
-                                        </span>
-                                      )}
-
-                                      {item.color && (
-                                        <span>
-                                          {item.color}
-                                        </span>
-                                      )}
-
-                                      <span>
-                                        Qty {item.quantity}
-                                      </span>
-                                    </div>
-                                  </div>
-
-                                  <strong className="orders__product-price">
-                                    {formatPrice(
-                                      Number(item.price) *
-                                        Number(
-                                          item.quantity || 1,
-                                        ),
-                                    )}
-                                  </strong>
+                                  <img src={item.image} alt={item.name} />
                                 </motion.div>
-                              ),
-                            )}
+
+                                <div className="orders__product-info">
+                                  <small>{item.category || "AUREVYN"}</small>
+
+                                  <h4>{item.name}</h4>
+
+                                  <div className="orders__product-meta">
+                                    {item.size && <span>Size {item.size}</span>}
+
+                                    {item.color && <span>{item.color}</span>}
+
+                                    <span>Qty {item.quantity}</span>
+                                  </div>
+                                </div>
+
+                                <strong className="orders__product-price">
+                                  {formatPrice(
+                                    Number(item.price) *
+                                      Number(item.quantity || 1),
+                                  )}
+                                </strong>
+                              </motion.div>
+                            ))}
                           </div>
 
                           <div className="orders__total">
                             <span>ORDER TOTAL</span>
 
-                            <strong>
-                              {formatPrice(order.total)}
-                            </strong>
+                            <strong>{formatPrice(order.total)}</strong>
                           </div>
                         </div>
                       </motion.div>
@@ -784,10 +708,7 @@ const Orders = () => {
             }}
           >
             <div className="orders__empty-icon">
-              <ShoppingBag
-                size={28}
-                strokeWidth={1.2}
-              />
+              <ShoppingBag size={28} strokeWidth={1.2} />
             </div>
 
             <p className="orders__eyebrow">YOUR JOURNEY</p>
@@ -798,9 +719,8 @@ const Orders = () => {
             </h3>
 
             <p>
-              You haven't placed an order yet. Discover the
-              AUREVYN collection and find something that feels
-              like you.
+              You haven't placed an order yet. Discover the AUREVYN collection
+              and find something that feels like you.
             </p>
 
             <MotionLink
@@ -815,19 +735,14 @@ const Orders = () => {
               }}
             >
               Explore collection
-              <ArrowRight
-                size={16}
-                strokeWidth={1.5}
-              />
+              <ArrowRight size={16} strokeWidth={1.5} />
             </MotionLink>
           </motion.div>
         )}
 
         <div className="orders__cta">
           <div>
-            <p className="orders__eyebrow">
-              STILL LOOKING?
-            </p>
+            <p className="orders__eyebrow">STILL LOOKING?</p>
 
             <h3>
               Find your next
@@ -848,10 +763,7 @@ const Orders = () => {
             }}
           >
             Shop AUREVYN
-            <ArrowRight
-              size={17}
-              strokeWidth={1.6}
-            />
+            <ArrowRight size={17} strokeWidth={1.6} />
           </MotionLink>
         </div>
       </section>

@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 const MotionLink = motion.create(Link);
 
 const formatPrice = (price) => {
-  return `Rs. ${Number(price).toLocaleString("en-PK")}`;
+  return `Rs. ${Number(price || 0).toLocaleString("en-PK")}`;
 };
 
 const Cart = () => {
@@ -41,24 +41,24 @@ const Cart = () => {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.to(".cart__hero-glow", {
-        x: 70,
-        y: -25,
-        scale: 1.08,
-        duration: 7,
+        x: 28,
+        y: -10,
+        scale: 1.03,
+        duration: 10,
         repeat: -1,
         yoyo: true,
         ease: "sine.inOut",
       });
 
       gsap.to(".cart__hero-orbit", {
-        y: 70,
-        rotation: 12,
+        y: 35,
+        rotation: 5,
         ease: "none",
         scrollTrigger: {
           trigger: heroRef.current,
           start: "top top",
           end: "bottom top",
-          scrub: 1,
+          scrub: 1.5,
         },
       });
     }, pageRef);
@@ -77,17 +77,17 @@ const Cart = () => {
       gsap.fromTo(
         ".cart__panel",
         {
-          opacity: 0,
-          y: 45,
+          opacity: 0.85,
+          y: 18,
         },
         {
           opacity: 1,
           y: 0,
-          duration: 0.85,
-          ease: "power3.out",
+          duration: 0.5,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: cartRef.current,
-            start: "top 84%",
+            start: "top 88%",
             once: true,
           },
         },
@@ -96,18 +96,18 @@ const Cart = () => {
       gsap.fromTo(
         ".cart__summary",
         {
-          opacity: 0,
-          y: 45,
+          opacity: 0.85,
+          y: 18,
         },
         {
           opacity: 1,
           y: 0,
-          duration: 0.85,
-          delay: 0.12,
-          ease: "power3.out",
+          duration: 0.5,
+          delay: 0.05,
+          ease: "power2.out",
           scrollTrigger: {
             trigger: cartRef.current,
-            start: "top 84%",
+            start: "top 88%",
             once: true,
           },
         },
@@ -135,12 +135,12 @@ const Cart = () => {
               to="/shop"
               className="cart__back"
               whileHover={{
-                x: -5,
-                gap: 12,
+                x: -3,
+                gap: 10,
                 color: "#e7dfd1",
               }}
               whileTap={{
-                scale: 0.97,
+                scale: 0.985,
               }}
             >
               <ArrowRight
@@ -159,15 +159,16 @@ const Cart = () => {
               className="cart__eyebrow"
               initial={{
                 opacity: 0,
-                x: -18,
+                x: -8,
               }}
               animate={{
                 opacity: 1,
                 x: 0,
               }}
               transition={{
-                duration: 0.7,
-                delay: 0.08,
+                duration: 0.4,
+                delay: 0.05,
+                ease: "easeOut",
               }}
             >
               AUREVYN / {cartItems.length > 0 ? "CURRENT EDIT" : "BAG"}
@@ -177,18 +178,16 @@ const Cart = () => {
               className="cart__title"
               initial={{
                 opacity: 0,
-                y: 45,
-                scale: 0.97,
+                y: 16,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
-                scale: 1,
               }}
               transition={{
-                duration: 1,
-                delay: 0.15,
-                ease: [0.22, 1, 0.36, 1],
+                duration: 0.55,
+                delay: 0.08,
+                ease: "easeOut",
               }}
             >
               Your
@@ -199,15 +198,16 @@ const Cart = () => {
               className="cart__description"
               initial={{
                 opacity: 0,
-                y: 24,
+                y: 10,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
               }}
               transition={{
-                duration: 0.8,
-                delay: 0.38,
+                duration: 0.45,
+                delay: 0.16,
+                ease: "easeOut",
               }}
             >
               {cartItems.length > 0
@@ -219,15 +219,16 @@ const Cart = () => {
               className="cart__hero-meta"
               initial={{
                 opacity: 0,
-                y: 18,
+                y: 8,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
               }}
               transition={{
-                duration: 0.7,
-                delay: 0.54,
+                duration: 0.4,
+                delay: 0.22,
+                ease: "easeOut",
               }}
             >
               <span>
@@ -268,24 +269,25 @@ const Cart = () => {
             className="cart__empty"
             initial={{
               opacity: 0,
-              y: 30,
+              y: 14,
             }}
             animate={{
               opacity: 1,
               y: 0,
             }}
             transition={{
-              duration: 0.75,
-              delay: 0.12,
+              duration: 0.45,
+              delay: 0.08,
+              ease: "easeOut",
             }}
           >
             <motion.div
               className="cart__empty-icon"
               animate={{
-                y: [0, -7, 0],
+                y: [0, -3, 0],
               }}
               transition={{
-                duration: 3,
+                duration: 4.5,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
@@ -309,12 +311,12 @@ const Cart = () => {
               to="/shop"
               className="cart__empty-button"
               whileHover={{
-                y: -4,
-                gap: 13,
+                y: -2,
+                gap: 11,
                 backgroundColor: "#d0ad6a",
               }}
               whileTap={{
-                scale: 0.97,
+                scale: 0.985,
               }}
             >
               Explore collection
@@ -350,7 +352,7 @@ const Cart = () => {
                       className="cart__item"
                       initial={{
                         opacity: 0,
-                        y: 30,
+                        y: 12,
                       }}
                       animate={{
                         opacity: 1,
@@ -358,12 +360,11 @@ const Cart = () => {
                       }}
                       exit={{
                         opacity: 0,
-                        x: -40,
-                        scale: 0.97,
+                        x: -15,
                       }}
                       transition={{
-                        duration: 0.45,
-                        ease: [0.22, 1, 0.36, 1],
+                        duration: 0.3,
+                        ease: "easeOut",
                       }}
                     >
                       <div className="cart__item-number">
@@ -376,11 +377,11 @@ const Cart = () => {
                           alt={item.name}
                           className="cart__item-image"
                           whileHover={{
-                            scale: 1.06,
+                            scale: 1.03,
                           }}
                           transition={{
-                            duration: 0.7,
-                            ease: [0.22, 1, 0.36, 1],
+                            duration: 0.4,
+                            ease: "easeOut",
                           }}
                         />
                       </div>
@@ -412,11 +413,11 @@ const Cart = () => {
                               decreaseQuantity(item.id, item.size, item.color)
                             }
                             whileHover={{
-                              scale: 1.08,
+                              scale: 1.03,
                               backgroundColor: "#eee9df",
                             }}
                             whileTap={{
-                              scale: 0.9,
+                              scale: 0.96,
                             }}
                           >
                             <Minus size={14} strokeWidth={1.5} />
@@ -431,11 +432,11 @@ const Cart = () => {
                               increaseQuantity(item.id, item.size, item.color)
                             }
                             whileHover={{
-                              scale: 1.08,
+                              scale: 1.03,
                               backgroundColor: "#eee9df",
                             }}
                             whileTap={{
-                              scale: 0.9,
+                              scale: 0.96,
                             }}
                           >
                             <Plus size={14} strokeWidth={1.5} />
@@ -457,11 +458,11 @@ const Cart = () => {
                             removeFromCart(item.id, item.size, item.color)
                           }
                           whileHover={{
-                            x: 3,
+                            x: 2,
                             color: "#a17735",
                           }}
                           whileTap={{
-                            scale: 0.92,
+                            scale: 0.97,
                           }}
                         >
                           <Trash2 size={14} strokeWidth={1.5} />
@@ -478,15 +479,16 @@ const Cart = () => {
               className="cart__summary"
               initial={{
                 opacity: 0,
-                y: 30,
+                y: 14,
               }}
               animate={{
                 opacity: 1,
                 y: 0,
               }}
               transition={{
-                duration: 0.7,
-                delay: 0.25,
+                duration: 0.45,
+                delay: 0.08,
+                ease: "easeOut",
               }}
             >
               <p className="cart__eyebrow">ORDER SUMMARY</p>
@@ -523,12 +525,12 @@ const Cart = () => {
                 type="button"
                 className="cart__checkout"
                 whileHover={{
-                  y: -4,
-                  gap: 13,
+                  y: -2,
+                  gap: 11,
                   backgroundColor: "#d0ad6a",
                 }}
                 whileTap={{
-                  scale: 0.97,
+                  scale: 0.985,
                 }}
                 onClick={() => navigate("/checkout")}
               >
@@ -540,7 +542,7 @@ const Cart = () => {
                 to="/shop"
                 className="cart__continue"
                 whileHover={{
-                  gap: 12,
+                  gap: 10,
                   color: "#a17735",
                 }}
               >
