@@ -39,9 +39,7 @@ const corsOptions = {
       return callback(null, true);
     }
 
-    const normalizedOrigin = origin.replace(/\/+$/, "");
-
-    if (allowedOrigins.includes(normalizedOrigin)) {
+    if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
 
@@ -54,8 +52,6 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 
   allowedHeaders: ["Content-Type", "Authorization", "X-Guest-Id"],
-
-  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
