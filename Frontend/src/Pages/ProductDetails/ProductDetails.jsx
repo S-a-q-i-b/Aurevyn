@@ -25,7 +25,9 @@ const formatPrice = (price) => {
 };
 
 const getProductImages = (product) => {
-  if (!product) return [];
+  if (!product) {
+    return [];
+  }
 
   const images = [
     ...(Array.isArray(product.images) ? product.images : []),
@@ -74,9 +76,10 @@ const isHexColor = (value) => {
     return false;
   }
 
+  const normalized = value.trim();
+
   return (
-    /^#([0-9A-F]{3}){1,2}$/i.test(value.trim()) ||
-    /^rgba?\(/i.test(value.trim())
+    /^#([0-9A-F]{3}){1,2}$/i.test(normalized) || /^rgba?\(/i.test(normalized)
   );
 };
 
@@ -88,9 +91,12 @@ const ProductDetails = () => {
   const { isInWishlist, toggleWishlist } = useWishlist();
 
   const pageRef = useRef(null);
+  const topbarRef = useRef(null);
+  const visualRef = useRef(null);
   const imageRef = useRef(null);
   const orbitRef = useRef(null);
   const contentRef = useRef(null);
+  const bottomCardRef = useRef(null);
 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -100,16 +106,22 @@ const ProductDetails = () => {
   const [selectedColor, setSelectedColor] = useState("");
 
   const [selectedImage, setSelectedImage] = useState(0);
-
   const [quantity, setQuantity] = useState(1);
 
-  const images = useMemo(() => getProductImages(product), [product]);
+  const images = useMemo(() => {
+    return getProductImages(product);
+  }, [product]);
 
   const rating = getRating(product);
   const reviewCount = getReviewCount(product);
   const badge = getBadge(product);
 
+  /*
+   * LOAD PRODUCT
+   */
   useEffect(() => {
+    let cancelled = false;
+
     const loadProduct = async () => {
       try {
         setLoading(true);
@@ -119,6 +131,10 @@ const ProductDetails = () => {
 
         if (!response?.product) {
           throw new Error("Product not found");
+        }
+
+        if (cancelled) {
+          return;
         }
 
         const normalizedProduct = {
@@ -149,6 +165,10 @@ const ProductDetails = () => {
         setSelectedImage(0);
         setQuantity(1);
       } catch (err) {
+        if (cancelled) {
+          return;
+        }
+
         console.error("PRODUCT DETAILS ERROR:", err);
 
         setError(
@@ -157,85 +177,201 @@ const ProductDetails = () => {
             "Unable to load this product.",
         );
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
     loadProduct();
+
+    return () => {
+      cancelled = true;
+    };
   }, [id]);
 
+  /*
+   * MAKE SURE SELECTED IMAGE EXISTS
+   */
   useEffect(() => {
-    if (!product) {
+    if (images.length === 0) {
+      setSelectedImage(0);
+      return;
+    }
+
+    if (selectedImage >= images.length) {
+      setSelectedImage(0);
+    }
+  }, [images, selectedImage]);
+
+  /*
+   * GSAP PAGE INTRO + ORBIT + SCROLL PARALLAX + BOTTOM CARD
+   *
+   * IMPORTANT:
+   * These elements are NOT controlled by Framer Motion anymore.
+   */
+  useEffect(() => {
+    if (!product || !pageRef.current) {
       return;
     }
 
     const ctx = gsap.context(() => {
-      const intro = gsap.timeline();
+      const intro = gsap.timeline({
+        defaults: {
+          overwrite: "auto",
+        },
+      });
 
+      /*
+       * Explicit starting states.
+       * fromTo() is safer here than from().
+       */
       intro
-        .from(".product-details__topbar", {
-          opacity: 0,
-          y: -12,
-          duration: 0.6,
-          ease: "power3.out",
-        })
-        .from(
-          ".product-details__visual",
+        .fromTo(
+          topbarRef.current,
           {
-            opacity: 0,
+            autoAlpha: 0,
+            y: -12,
+          },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power3.out",
+          },
+        )
+        .fromTo(
+          visualRef.current,
+          {
+            autoAlpha: 0,
             y: 40,
+          },
+          {
+            autoAlpha: 1,
+            y: 0,
             duration: 0.9,
             ease: "power3.out",
           },
           "-=0.3",
         )
-        .from(
-          ".product-details__info",
+        .fromTo(
+          contentRef.current,
           {
-            opacity: 0,
+            autoAlpha: 0,
             x: 45,
+          },
+          {
+            autoAlpha: 1,
+            x: 0,
             duration: 0.9,
             ease: "power3.out",
           },
           "-=0.65",
         );
 
+      /*
+       * Orbit rotation
+       */
       if (orbitRef.current) {
         gsap.to(orbitRef.current, {
-          rotate: 360,
+          rotation: 360,
           duration: 26,
           repeat: -1,
           ease: "none",
         });
       }
 
-      if (imageRef.current) {
+      /*
+       * Image parallax
+       *
+       * Only yPercent is controlled here.
+       * No Framer transform is fighting it.
+       */
+      if (imageRef.current && visualRef.current) {
         gsap.to(imageRef.current, {
           yPercent: 4,
           ease: "none",
           scrollTrigger: {
-            trigger: ".product-details__visual",
+            trigger: visualRef.current,
             start: "top bottom",
             end: "bottom top",
             scrub: 1,
+            invalidateOnRefresh: true,
           },
         });
       }
 
-      gsap.from(".product-details__bottom-card", {
-        opacity: 0,
-        y: 35,
-        duration: 0.8,
-        scrollTrigger: {
-          trigger: ".product-details__bottom-card",
-          start: "top 85%",
-          once: true,
-        },
-      });
+      /*
+       * Bottom card reveal
+       */
+      if (bottomCardRef.current) {
+        gsap.fromTo(
+          bottomCardRef.current,
+          {
+            autoAlpha: 0,
+            y: 35,
+          },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: bottomCardRef.current,
+              start: "top 85%",
+              once: true,
+            },
+          },
+        );
+      }
     }, pageRef);
 
-    return () => ctx.revert();
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+
+    return () => {
+      ctx.revert();
+    };
   }, [product]);
+
+  /*
+   * IMAGE CHANGE ANIMATION
+   *
+   * GSAP only.
+   * No Framer Motion opacity/scale conflict.
+   */
+  useEffect(() => {
+    if (!imageRef.current || !images[selectedImage]) {
+      return;
+    }
+
+    const image = imageRef.current;
+
+    gsap.killTweensOf(image, {
+      autoAlpha: true,
+      scale: true,
+    });
+
+    gsap.fromTo(
+      image,
+      {
+        autoAlpha: 0,
+        scale: 1.035,
+      },
+      {
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.55,
+        ease: "power3.out",
+        overwrite: false,
+      },
+    );
+
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+    });
+  }, [selectedImage, images]);
 
   const itemSubtotal = useMemo(() => {
     if (!product) {
@@ -365,9 +501,9 @@ const ProductDetails = () => {
 
   return (
     <main ref={pageRef} className="product-details">
+      {/* TOPBAR */}
 
-
-      <div className="product-details__topbar">
+      <div ref={topbarRef} className="product-details__topbar">
         <Link to="/shop" className="product-details__back">
           <ArrowLeft size={14} strokeWidth={1.5} />
           Back to collection
@@ -376,30 +512,12 @@ const ProductDetails = () => {
         <span>AUREVYN / {product.category || "PIECE"}</span>
       </div>
 
-      {/* ======================================
-          MAIN
-      ====================================== */}
+      {/* MAIN */}
 
       <section className="product-details__main">
-        {/* ======================================
-            VISUAL
-        ====================================== */}
+        {/* VISUAL */}
 
-        <motion.div
-          className="product-details__visual"
-          initial={{
-            opacity: 0,
-            y: 30,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
+        <div ref={visualRef} className="product-details__visual">
           <div className="product-details__image-stage">
             <div className="product-details__orbit">
               <div ref={orbitRef}>
@@ -438,24 +556,12 @@ const ProductDetails = () => {
             </div>
 
             <div className="product-details__image-wrap">
-              <motion.img
-                key={`${images[selectedImage]}-${selectedImage}`}
+              <img
                 ref={imageRef}
                 src={images[selectedImage] || product.image}
                 alt={product.name}
                 className="product-details__image"
-                initial={{
-                  opacity: 0,
-                  scale: 1.035,
-                }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                }}
-                transition={{
-                  duration: 0.55,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
+                onLoad={() => ScrollTrigger.refresh()}
               />
 
               <span className="product-details__image-glint" />
@@ -513,7 +619,7 @@ const ProductDetails = () => {
               {images.map((image, index) => (
                 <motion.button
                   type="button"
-                  key={image}
+                  key={`${image}-${index}`}
                   className={selectedImage === index ? "is-active" : ""}
                   onClick={() => handleImageChange(index)}
                   whileHover={{
@@ -524,34 +630,21 @@ const ProductDetails = () => {
                   }}
                   aria-label={`View image ${index + 1}`}
                 >
-                  <img loading="lazy" decoding="async" src={image} alt={`${product.name} view ${index + 1}`} />
+                  <img
+                    loading="lazy"
+                    decoding="async"
+                    src={image}
+                    alt={`${product.name} view ${index + 1}`}
+                  />
                 </motion.button>
               ))}
             </div>
           )}
-        </motion.div>
+        </div>
 
-        {/* ======================================
-            PRODUCT INFO
-        ====================================== */}
+        {/* PRODUCT INFO */}
 
-        <motion.div
-          ref={contentRef}
-          className="product-details__info"
-          initial={{
-            opacity: 0,
-            x: 35,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 0.85,
-            delay: 0.12,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-        >
+        <div ref={contentRef} className="product-details__info">
           <div className="product-details__eyebrow-row">
             <p className="product-details__eyebrow">
               AUREVYN / {product.category || "COLLECTION"}
@@ -566,9 +659,7 @@ const ProductDetails = () => {
 
           <div className="product-details__rating">
             <div className="product-details__stars">
-              {Array.from({
-                length: 5,
-              }).map((_, index) => (
+              {Array.from({ length: 5 }).map((_, index) => (
                 <Star
                   key={index}
                   size={13}
@@ -616,7 +707,6 @@ const ProductDetails = () => {
             <div className="product-details__option">
               <div className="product-details__option-head">
                 <span>Size</span>
-
                 <span>{selectedSize || "Select size"}</span>
               </div>
 
@@ -648,16 +738,13 @@ const ProductDetails = () => {
             <div className="product-details__option">
               <div className="product-details__option-head">
                 <span>Color</span>
-
                 <span>{selectedColor || "Select color"}</span>
               </div>
 
               <div className="product-details__color-choices">
                 {product.colors.map((color) => {
                   const colorValue = String(color);
-
                   const hex = isHexColor(colorValue) ? colorValue : null;
-
                   const active = selectedColor === color;
 
                   return (
@@ -773,17 +860,14 @@ const ProductDetails = () => {
 
           <div className="product-details__subtotal">
             <span>Selection total</span>
-
             <strong>{formatPrice(itemSubtotal)}</strong>
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* ======================================
-          BOTTOM INFO
-      ====================================== */}
+      {/* BOTTOM INFO */}
 
-      <section className="product-details__bottom-card">
+      <section ref={bottomCardRef} className="product-details__bottom-card">
         <div className="product-details__bottom-art">
           <svg viewBox="0 0 360 360">
             <circle
