@@ -32,8 +32,9 @@ const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Instagram"
+                className="insta"
               >
-                <FaSquareInstagram size={16} />; Instagram
+                <FaSquareInstagram size={16} /> Instagram
               </a>
 
               <a
@@ -41,6 +42,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Facebook"
+                className="facebook"
               >
                 <AiFillFacebook size={16} />
                 Facebook
@@ -51,6 +53,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="YouTube"
+                className="you"
               >
                 <IoLogoYoutube size={16} />
                 YouTube

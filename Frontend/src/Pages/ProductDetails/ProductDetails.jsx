@@ -410,8 +410,6 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          {/* THUMBNAILS */}
-
           {images.length > 1 && (
             <div className="product-details__thumbnails">
               {images.map((image, index) => (
@@ -434,20 +432,17 @@ const ProductDetails = () => {
           )}
         </div>
 
-        {/* PRODUCT INFO */}
-
         <div className="product-details__info">
           <div className="product-details__eyebrow-row">
             <p className="product-details__eyebrow">
               AUREVYN / {product.category || "COLLECTION"}
             </p>
-
+          h
+          
             <span>{product.gender || "Unisex"}</span>
           </div>
 
           <h1>{product.name}</h1>
-
-          {/* RATING */}
 
           <div className="product-details__rating">
             <div className="product-details__stars">
@@ -465,8 +460,6 @@ const ProductDetails = () => {
 
             <span>({reviewCount} reviews)</span>
           </div>
-
-          {/* PRICE */}
 
           <div className="product-details__price">
             <strong>{formatPrice(product.price)}</strong>
@@ -492,8 +485,6 @@ const ProductDetails = () => {
             {product.description ||
               "Designed for effortless everyday styling, this AUREVYN piece balances clean proportions, refined details, and modern comfort."}
           </p>
-
-          {/* SIZE */}
 
           {Array.isArray(product.sizes) && product.sizes.length > 0 && (
             <div className="product-details__option">
@@ -521,8 +512,6 @@ const ProductDetails = () => {
               </div>
             </div>
           )}
-
-          {/* COLOR */}
 
           {Array.isArray(product.colors) && product.colors.length > 0 && (
             <div className="product-details__option">
@@ -566,8 +555,6 @@ const ProductDetails = () => {
             </div>
           )}
 
-          {/* PURCHASE */}
-
           <div className="product-details__purchase">
             <div className="product-details__quantity">
               <button
@@ -610,8 +597,6 @@ const ProductDetails = () => {
             </button>
           </div>
 
-          {/* AVAILABILITY */}
-
           <div className="product-details__availability">
             <div>
               <Check size={15} strokeWidth={1.6} />
@@ -626,8 +611,6 @@ const ProductDetails = () => {
             <span>Complimentary delivery above Rs. 15,000</span>
           </div>
 
-          {/* TOTAL */}
-
           <div className="product-details__subtotal">
             <span>Selection total</span>
 
@@ -635,8 +618,6 @@ const ProductDetails = () => {
           </div>
         </div>
       </section>
-
-
 
       <section className="product-details__bottom-card">
         <div className="product-details__bottom-art">
