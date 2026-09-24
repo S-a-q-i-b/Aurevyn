@@ -141,30 +141,109 @@
 .footer__socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
+  gap: 12px;
   margin-top: 28px;
 }
 
 .footer__socials a {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
+  padding: 9px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.025);
   color: #6f6f6f;
   text-decoration: none;
   font-size: 0.68rem;
-  transition: color 0.3s ease;
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    color 0.35s ease,
+    border-color 0.35s ease,
+    background 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s ease;
+}
+
+.footer__socials a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 80%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+
+.footer__socials a::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 4px;
+  height: 1px;
+  border-radius: 999px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.35s ease;
+}
+
+.footer__socials a svg {
+  flex-shrink: 0;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.35s ease;
+}
+
+.footer__socials a:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.footer__socials a:hover::before {
+  transform: translateX(120%);
+}
+
+.footer__socials a:hover::after {
+  transform: scaleX(1);
+}
+
+.footer__socials a:hover svg {
+  transform: scale(1.2) rotate(-6deg);
 }
 
 .footer__socials a.insta:hover {
   color: rgb(240, 150, 165);
+  border-color: rgba(240, 150, 165, 0.35);
+  box-shadow: 0 8px 30px rgba(240, 150, 165, 0.12);
+}
+
+.footer__socials a.insta:hover svg {
+  filter: drop-shadow(0 0 7px rgba(240, 150, 165, 0.55));
 }
 
 .footer__socials a.facebook:hover {
   color: rgba(0, 153, 255, 0.876);
+  border-color: rgba(0, 153, 255, 0.35);
+  box-shadow: 0 8px 30px rgba(0, 153, 255, 0.12);
+}
+
+.footer__socials a.facebook:hover svg {
+  filter: drop-shadow(0 0 7px rgba(0, 153, 255, 0.55));
 }
 
 .footer__socials a.you:hover {
-  color: red;
+  color: #ff3b30;
+  border-color: rgba(255, 59, 48, 0.35);
 }
 
 @media (max-width: 900px) {
