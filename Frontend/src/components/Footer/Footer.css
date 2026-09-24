@@ -158,21 +158,16 @@
   transition: color 0.3s ease;
 }
 
-.footer__socials a:hover {
-  color: #c8a96b;
-}
-.you:hover{
+.you:hover {
   color: red;
 }
 
-.insta:hover{
+.insta:hover {
   color: rgb(240, 150, 165);
 }
-.facebook:hover{
-  color:rgba(0, 153, 255, 0.876);
+.facebook:hover {
+  color: rgba(0, 153, 255, 0.876);
 }
-
-
 
 @media (max-width: 900px) {
   .footer__top {
