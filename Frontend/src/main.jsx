@@ -5,9 +5,6 @@ import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { WishlistProvider } from "./context/WishlistContext";
-import Preloader from "./components/Preloader/Preloader";
-import SmoothScroll from "./components/SmoothScroll/SmoothScroll";
-import GlobalCursor from "./components/GlobalCursor/GlobalCursor";
 import "./styles/global.css";
 import "./styles/variables.css";
 
@@ -17,12 +14,7 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <CartProvider>
           <WishlistProvider>
-            <Preloader>
-              <SmoothScroll>
-                <GlobalCursor />
-                <App />
-              </SmoothScroll>
-            </Preloader>
+            <App />
           </WishlistProvider>
         </CartProvider>
       </AuthProvider>
