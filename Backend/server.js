@@ -69,18 +69,7 @@ app.use(
 
 app.use(cookieParser());
 
-app.use(async (req, res, next) => {
-  try {
-    await connectDB();
-    return next();
-  } catch (error) {
-    console.error("Database unavailable:", error.message);
-    return res.status(503).json({
-      success: false,
-      message: "Database connection unavailable",
-    });
-  }
-});
+
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -122,6 +111,19 @@ app.get("/api/health", (req, res) => {
     message: "Aurevyn API is healthy",
     timestamp: new Date().toISOString(),
   });
+});
+
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    return next();
+  } catch (error) {
+    console.error("Database unavailable:", error.message);
+    return res.status(503).json({
+      success: false,
+      message: "Database connection unavailable",
+    });
+  }
 });
 
 app.use("/api/auth", authRoutes);
