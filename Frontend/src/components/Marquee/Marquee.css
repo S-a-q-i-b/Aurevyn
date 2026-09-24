@@ -4,94 +4,88 @@
   overflow: hidden;
   background: #d4af37;
   color: #090909;
-  padding: 15px 0;
   white-space: nowrap;
-  isolation: isolate;
 }
 
-.aurevyn-marquee::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.12),
-    transparent 20%,
-    transparent 80%,
-    rgba(255, 255, 255, 0.12)
-  );
-  z-index: -1;
+.aurevyn-marquee__viewport {
+  width: 100%;
+  overflow: hidden;
 }
 
 .aurevyn-marquee__track {
   display: flex;
   width: max-content;
-  align-items: center;
+  animation: aurevynMarquee 22s linear infinite;
   will-change: transform;
 }
 
 .aurevyn-marquee__group {
   display: flex;
-  flex-shrink: 0;
   align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  min-width: 100vw;
+  padding: 15px 30px;
+  box-sizing: border-box;
+}
+
+.aurevyn-marquee__group span {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
   gap: 26px;
-  padding-right: 26px;
   font:
     600 0.74rem/1 Inter,
     sans-serif;
   letter-spacing: 0.2em;
 }
 
-.aurevyn-marquee__group span {
-  display: inline-block;
-}
-
 .aurevyn-marquee__group i {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+  display: inline-block;
+  margin: 0 26px;
   font-style: normal;
   font-size: 0.95rem;
   line-height: 1;
-  animation: marqueeStar 2.4s ease-in-out infinite;
 }
 
-@keyframes marqueeStar {
-  0%,
-  100% {
-    transform: rotate(0deg) scale(1);
+@keyframes aurevynMarquee {
+  from {
+    transform: translateX(0);
   }
 
-  50% {
-    transform: rotate(90deg) scale(1.15);
+  to {
+    transform: translateX(-50%);
   }
+}
+
+.aurevyn-marquee:hover .aurevyn-marquee__track {
+  animation-play-state: paused;
 }
 
 @media (max-width: 650px) {
-  .aurevyn-marquee {
-    padding: 13px 0;
+  .aurevyn-marquee__track {
+    animation-duration: 17s;
   }
 
   .aurevyn-marquee__group {
-    gap: 20px;
-    padding-right: 20px;
-    font-size: 0.64rem;
-    letter-spacing: 0.16em;
+    padding: 13px 20px;
+  }
+
+  .aurevyn-marquee__group span {
+    gap: 18px;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
   }
 
   .aurevyn-marquee__group i {
-    font-size: 0.82rem;
+    margin: 0 18px;
+    font-size: 0.8rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .aurevyn-marquee__track {
-    transform: translateX(-50%);
-  }
-
-  .aurevyn-marquee__group i {
     animation: none;
+    transform: translateX(0);
   }
 }
