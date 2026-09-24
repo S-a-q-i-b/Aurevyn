@@ -48,13 +48,10 @@ const corsOptions = {
   allowedHeaders: ["Content-Type", "Authorization", "X-Guest-Id"],
 };
 
-app.use(cors(corsOptions));
-
-app.options("*", cors(corsOptions));
-
 app.set("trust proxy", 1);
 
 app.disable("x-powered-by");
+app.use(cors(corsOptions));
 
 app.use(compression({ threshold: 1024 }));
 
@@ -68,8 +65,6 @@ app.use(
 );
 
 app.use(cookieParser());
-
-
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
