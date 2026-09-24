@@ -190,9 +190,7 @@ const ProductDetails = () => {
     };
   }, [id]);
 
-  /*
-   * MAKE SURE SELECTED IMAGE EXISTS
-   */
+
   useEffect(() => {
     if (images.length === 0) {
       setSelectedImage(0);
@@ -204,12 +202,7 @@ const ProductDetails = () => {
     }
   }, [images, selectedImage]);
 
-  /*
-   * GSAP PAGE INTRO + ORBIT + SCROLL PARALLAX + BOTTOM CARD
-   *
-   * IMPORTANT:
-   * These elements are NOT controlled by Framer Motion anymore.
-   */
+
   useEffect(() => {
     if (!product || !pageRef.current) {
       return;
@@ -222,56 +215,46 @@ const ProductDetails = () => {
         },
       });
 
-      /*
-       * Explicit starting states.
-       * fromTo() is safer here than from().
-       */
       intro
         .fromTo(
           topbarRef.current,
           {
-            autoAlpha: 0,
             y: -12,
           },
           {
-            autoAlpha: 1,
             y: 0,
             duration: 0.6,
             ease: "power3.out",
+            clearProps: "transform",
           },
         )
         .fromTo(
           visualRef.current,
           {
-            autoAlpha: 0,
             y: 40,
           },
           {
-            autoAlpha: 1,
             y: 0,
             duration: 0.9,
             ease: "power3.out",
+            clearProps: "transform",
           },
           "-=0.3",
         )
         .fromTo(
           contentRef.current,
           {
-            autoAlpha: 0,
             x: 45,
           },
           {
-            autoAlpha: 1,
             x: 0,
             duration: 0.9,
             ease: "power3.out",
+            clearProps: "transform",
           },
           "-=0.65",
         );
 
-      /*
-       * Orbit rotation
-       */
       if (orbitRef.current) {
         gsap.to(orbitRef.current, {
           rotation: 360,
@@ -281,12 +264,6 @@ const ProductDetails = () => {
         });
       }
 
-      /*
-       * Image parallax
-       *
-       * Only yPercent is controlled here.
-       * No Framer transform is fighting it.
-       */
       if (imageRef.current && visualRef.current) {
         gsap.to(imageRef.current, {
           yPercent: 4,
@@ -301,21 +278,17 @@ const ProductDetails = () => {
         });
       }
 
-      /*
-       * Bottom card reveal
-       */
       if (bottomCardRef.current) {
         gsap.fromTo(
           bottomCardRef.current,
           {
-            autoAlpha: 0,
             y: 35,
           },
           {
-            autoAlpha: 1,
             y: 0,
             duration: 0.8,
             ease: "power3.out",
+            clearProps: "transform",
             scrollTrigger: {
               trigger: bottomCardRef.current,
               start: "top 85%",
