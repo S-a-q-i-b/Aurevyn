@@ -22,14 +22,14 @@ const PORT = process.env.PORT || 5000;
 
 const configuredOrigins = String(process.env.CLIENT_URL || "")
   .split(",")
-  .map((value) => value.trim())
+  .map((value) => value.trim().replace(/\/+$/, ""))
   .filter(Boolean);
 
 const allowedOrigins = [
   ...new Set([
     ...configuredOrigins,
     "http://localhost:5173",
-    "https://aurevyn-7phgguesd-team-faith1.vercel.app",
+    "https://aurevyn-nc683ew22-team-faith1.vercel.app",
   ]),
 ];
 
@@ -39,12 +39,13 @@ const corsOptions = {
       return callback(null, true);
     }
 
-    if (allowedOrigins.includes(origin)) {
+    const normalizedOrigin = origin.replace(/\/+$/, "");
+
+    if (allowedOrigins.includes(normalizedOrigin)) {
       return callback(null, true);
     }
 
     console.warn(`Blocked CORS origin: ${origin}`);
-
     return callback(new Error("CORS origin not allowed"));
   },
 
@@ -56,6 +57,10 @@ const corsOptions = {
 
   optionsSuccessStatus: 204,
 };
+
+app.use(cors(corsOptions));
+
+app.options("*", cors(corsOptions));
 
 app.set("trust proxy", 1);
 
