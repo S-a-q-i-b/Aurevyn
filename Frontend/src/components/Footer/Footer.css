@@ -149,24 +149,22 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-
   color: #6f6f6f;
   text-decoration: none;
-
   font-size: 0.68rem;
-
   transition: color 0.3s ease;
 }
 
-.you:hover {
-  color: red;
-}
-
-.insta:hover {
+.footer__socials a.insta:hover {
   color: rgb(240, 150, 165);
 }
-.facebook:hover {
+
+.footer__socials a.facebook:hover {
   color: rgba(0, 153, 255, 0.876);
+}
+
+.footer__socials a.you:hover {
+  color: red;
 }
 
 @media (max-width: 900px) {
