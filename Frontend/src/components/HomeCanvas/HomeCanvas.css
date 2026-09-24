@@ -180,7 +180,7 @@
 
 @media (max-width: 420px) {
   .home-canvas {
-    height: 110vh;
+    height: 100vh;
   }
 
   .home-canvas__sticky {
