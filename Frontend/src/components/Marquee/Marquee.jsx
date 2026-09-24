@@ -8,7 +8,7 @@ const Marquee = () => (
   >
     <div className="aurevyn-marquee__track">
       <motion.div
-        animate={{ x: ["0%", "-50%"] }}
+        animate={{ x: ["0%", "-100%"] }}
         transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
       >
         <span>QUIET LUXURY</span>
