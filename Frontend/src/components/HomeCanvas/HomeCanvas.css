@@ -1,6 +1,6 @@
 .home-canvas {
   position: relative;
-  height: 180vh;
+  height: 160vh;
   background: #090909;
 }
 
@@ -98,7 +98,7 @@
 
 @media (max-width: 900px) {
   .home-canvas {
-    height: 165vh;
+    height: 145vh;
   }
 
   .home-canvas__copy {
@@ -123,7 +123,7 @@
 
 @media (max-width: 700px) {
   .home-canvas {
-    height: 150vh;
+    height: 120vh;
   }
 
   .home-canvas__sticky {
@@ -180,7 +180,7 @@
 
 @media (max-width: 420px) {
   .home-canvas {
-    height: 145vh;
+    height: 115vh;
   }
 
   .home-canvas__sticky {
