@@ -15,7 +15,7 @@
 .aurevyn-marquee__track {
   display: flex;
   width: max-content;
-  animation: aurevynMarquee 22s linear infinite;
+  animation: aurevynMarquee 25s linear infinite;
   will-change: transform;
 }
 
