@@ -1,4 +1,4 @@
-.product-details {
+/* .product-details {
   min-height: 100vh;
   padding: 24px max(4vw, calc((100vw - 1500px) / 2)) 110px;
   background: #f4f1e9;
@@ -17,9 +17,7 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ======================================
-   TOPBAR
-====================================== */
+
 
 .product-details__topbar {
   min-height: 50px;
@@ -58,9 +56,6 @@
   color: #9c7b43;
 }
 
-/* ======================================
-   MAIN GRID
-====================================== */
 
 .product-details__main {
   display: grid;
@@ -69,9 +64,7 @@
   gap: clamp(48px, 7vw, 110px);
 }
 
-/* ======================================
-   VISUAL
-====================================== */
+
 
 .product-details__visual {
   min-width: 0;
@@ -151,9 +144,6 @@
   background: #c8a96b;
 }
 
-/* ======================================
-   WISHLIST
-====================================== */
 
 .product-details__wishlist {
   position: absolute;
@@ -183,9 +173,7 @@
   border-color: #f7f4ed;
 }
 
-/* ======================================
-   IMAGE COUNTER
-====================================== */
+
 
 .product-details__image-counter {
   position: absolute;
@@ -203,9 +191,6 @@
   color: rgba(255, 255, 255, 0.35);
 }
 
-/* ======================================
-   SVG ORBIT
-====================================== */
 
 .product-details__orbit {
   position: absolute;
@@ -230,9 +215,7 @@
   display: block;
 }
 
-/* ======================================
-   THUMBNAILS
-====================================== */
+
 
 .product-details__thumbnails {
   margin-top: 12px;
@@ -288,9 +271,6 @@
   object-fit: cover;
 }
 
-/* ======================================
-   PRODUCT INFO
-====================================== */
 
 .product-details__info {
   min-width: 0;
@@ -331,9 +311,7 @@
   letter-spacing: -0.06em;
 }
 
-/* ======================================
-   RATING
-====================================== */
+
 
 .product-details__rating {
   margin-top: 19px;
@@ -360,9 +338,6 @@
   font-size: 8px;
 }
 
-/* ======================================
-   PRICE
-====================================== */
 
 .product-details__price {
   margin-top: 25px;
@@ -407,9 +382,6 @@
   line-height: 1.9;
 }
 
-/* ======================================
-   OPTIONS
-====================================== */
 
 .product-details__option {
   margin-top: 32px;
@@ -475,9 +447,7 @@
   border-color: #b18a4c;
 }
 
-/* ======================================
-   COLOR CHOICES
-====================================== */
+
 
 .product-details__color-choices {
   display: flex;
@@ -524,9 +494,6 @@
   border-color: #b18a4c;
 }
 
-/* ======================================
-   PURCHASE
-====================================== */
 
 .product-details__purchase {
   margin-top: 35px;
@@ -639,9 +606,6 @@
   cursor: not-allowed;
 }
 
-/* ======================================
-   AVAILABILITY
-====================================== */
 
 .product-details__availability {
   margin-top: 19px;
@@ -672,9 +636,7 @@
   text-align: right;
 }
 
-/* ======================================
-   SUBTOTAL
-====================================== */
+
 
 .product-details__subtotal {
   margin-top: 19px;
@@ -697,9 +659,6 @@
   font-weight: 600;
 }
 
-/* ======================================
-   BOTTOM CARD
-====================================== */
 
 .product-details__bottom-card {
   position: relative;
@@ -807,10 +766,6 @@
   color: #b18a4c;
 }
 
-/* ======================================
-   STATE
-====================================== */
-
 .product-details--state {
   min-height: 100vh;
   padding: 0;
@@ -880,9 +835,6 @@
   background: #ead19d;
 }
 
-/* ======================================
-   LOADING ANIMATION
-====================================== */
 
 @keyframes productStateFloat {
   0%,
@@ -895,9 +847,6 @@
   }
 }
 
-/* ======================================
-   TABLET
-====================================== */
 
 @media (max-width: 1050px) {
   .product-details {
@@ -931,9 +880,7 @@
   }
 }
 
-/* ======================================
-   MOBILE
-====================================== */
+
 
 @media (max-width: 760px) {
   .product-details {
@@ -1048,9 +995,6 @@
   }
 }
 
-/* ======================================
-   SMALL MOBILE
-====================================== */
 
 @media (max-width: 480px) {
   .product-details {
@@ -1126,9 +1070,6 @@
   }
 }
 
-/* ======================================
-   REDUCED MOTION
-====================================== */
 
 @media (prefers-reduced-motion: reduce) {
   .product-details *,
@@ -1138,4 +1079,4 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
-}
+} */
